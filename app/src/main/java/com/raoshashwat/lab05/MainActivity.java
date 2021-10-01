@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ConstraintLayout layout;
+    Button clearInstall;
+    Button clearRun;
 
     int countonCreate = 0;
     int countonStart = 0;
@@ -45,19 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textDisplay1 = findViewById(R.id.text_display1);
         textDisplay2 = findViewById(R.id.text_display2);
         layout = findViewById(R.id.activity_main_layout);
+        clearInstall = findViewById(R.id.clear_install);
+        clearRun = findViewById(R.id.clear_run);
         sharedPreferences = getSharedPreferences(TAG, MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        layout.setOnLongClickListener(new View.OnLongClickListener()
-        {
-            @Override
-            public boolean onLongClick(View view)
-            {
-                editor.clear().apply();
-                setInitialValues();
-                storeValues();
-                return false;
-            }
-        });
         setInitialValues();
         countonCreate ++;
         countonCreateLoc ++;
@@ -169,4 +162,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         storeValues();
     }
 
+    public void clearValsLifetime(View view)
+    {
+        editor.clear().apply();
+        setInitialValues();
+        storeValues();
+    }
+
+    public void clearValsRuntime(View view)
+    {
+        countonCreateLoc = 0;
+        countonStartLoc = 0;
+        countonResumeLoc = 0;
+        countonPauseLoc = 0;
+        countonStopLoc = 0;
+        countonRestartLoc = 0;
+        countonDestroyLoc = 0;
+        displayVals();
+    }
 }
